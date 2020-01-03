@@ -1,3 +1,4 @@
+require "pry"
 def game_hash
  {
     :home => {
@@ -190,17 +191,19 @@ def player_stats(player_name)
 end
 
 def big_shoe_rebounds
+  big_shoe = 0
+  big_shoe_player = {}
   game_hash.each do |place, team|
     team.each do |attribute, data|
       if attribute == :players
        data.each do |player|
-          big_shoe = player
-          if big_shoe[:shoe] < player[:shoe]
-            big_shoe = player
+          if player[:shoe] > big_shoe
+            big_shoe = player[:shoe]
+            big_shoe_player = player
           end
         end
       end
     end
   end
-  return big_shoe[:rebounds]
+  return big_shoe_player[:rebounds]
 end
